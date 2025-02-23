@@ -1,10 +1,9 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import os
 import io
 from io import BytesIO
-from openai import OpenAI
 
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 import google.generativeai as genai
@@ -16,7 +15,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-app = Flask(__name__, template_folder=os.path.join(os.path.dirname(__file__), 'templates'))
+
+app = Flask(__name__)
 
 # ... (Existing functions: get_pdf_text, get_text_chunks, get_vector_store, get_conversational_chain) ...
 # Extracting all the text from the PDFs and storing it in text
@@ -60,36 +60,44 @@ def get_conversational_chain():
     chain = load_qa_chain(model, chain_type="stuff", prompt=prompt)
     return chain
 
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        if 'pdf_files' in request.files:
+            uploaded_files = request.files.getlist("pdf_files")
+            if uploaded_files:
+                raw_text = get_pdf_text(uploaded_files)
+                text_chunks = get_text_chunks(raw_text)
+                get_vector_store(text_chunks)
+                return redirect(url_for('chat'))  # Redirect to the chat route after processing
+            else:
+                return render_template("index.html", error="Please upload at least one PDF file.")
 
-# When the chain is returned from get_conversational_chain, it is an object that can take inputs in the form of a dictionary. This dictionary should contain the necessary inputs (such as the input_documents and question in this case) required to generate the response.
-# The chain object returned by get_conversational_chain is already predefined and configured with the necessary prompt template, model, and chain type. Once this chain object is returned, you can pass the required parameters to it to generate a response.
+        if 'question' in request.form:
+            user_question = request.form.get("question")
+            if user_question:
+                answer = user_input(user_question)  # Get answer from user_input function
+                return render_template("chat.html", answer=answer, question=user_question)
+
+    return render_template("index.html")
+
+@app.route("/chat", methods=["GET", "POST"])
+def chat():
+    if request.method == "POST":
+        user_question = request.form.get("question")
+        if user_question:
+            answer = user_input(user_question)  # Get answer from user_input function
+            return render_template("chat.html", answer=answer, question=user_question)
+
+    return render_template("chat.html")
+
 def user_input(user_question):
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     new_db = FAISS.load_local("mohsin_faiss_index", embeddings, allow_dangerous_deserialization=True)
     docs = new_db.similarity_search(user_question)
     chain = get_conversational_chain()
     response = chain({"input_documents": docs, "question": user_question}, return_only_outputs=True)
-    st.write("Reply:", response["output_text"])  # Print the output text from the response list
-
-
-@app.route("/", methods=["GET", "POST"])
-def index():
-    if request.method == "POST":
-        uploaded_files = request.files.getlist("pdf_files")
-        if uploaded_files:
-            text = get_pdf_text(uploaded_files)
-            text_chunks = get_text_chunks(text)
-            get_vector_store(text_chunks)  
-            # Store the vector store persistently (e.g., in a database or on disk) for future use
-
-            question = request.form.get("question")
-            if question:
-                chain = get_conversational_chain()
-                response = chain({"question": question, "chat_history": []})  # Assuming no chat history for simplicity
-                answer = response['answer']
-                return render_template("index.html", answer=answer) 
-
-    return render_template("index.html")
+    return response["output_text"]  # Return the answer
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
