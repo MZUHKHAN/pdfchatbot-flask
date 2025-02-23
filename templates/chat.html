@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat with PDFs</title>
+</head>
+<body>
+    <h1>Chat with Your PDFs</h1>
+
+    <form method="POST">
+        <input type="text" name="question" placeholder="Enter your question" value="{{ question or '' }}">
+        <button type="submit">Ask</button>
+    </form>
+
+    {% if answer %}
+        <h2>Answer:</h2>
+        <p>{{ answer }}</p>
+    {% endif %}
+</body>
+</html>
