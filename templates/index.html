@@ -4,18 +4,14 @@
     <title>PDF QA App</title>
 </head>
 <body>
-    <h1>Ask a Question about Your PDFs</h1>
+    <h1>Upload PDF Files</h1>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
     <form method="POST" enctype="multipart/form-data">
         <input type="file" name="pdf_files" multiple>
         <br>
-        <input type="text" name="question" placeholder="Enter your question">
-        <br>
-        <button type="submit">Submit</button>
+        <button type="submit">Submit & Process</button>
     </form>
-
-    {% if answer %}
-        <h2>Answer:</h2>
-        <p>{{ answer }}</p>
-    {% endif %}
 </body>
 </html>
