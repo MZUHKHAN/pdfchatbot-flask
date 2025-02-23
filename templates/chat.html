@@ -57,4 +57,51 @@
 
         h2 {
             margin-top: 20px;
-            color
+            color: #333;
+        }
+
+        p {
+            white-space: pre-wrap;
+            line-height: 1.6; 
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .chat-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            form {
+                flex-direction: column; 
+            }
+
+            input[type="text"],
+            button[type="submit"] {
+                width: 100%;
+                border-radius: 5px; 
+                margin-bottom: 10px; 
+            }
+
+            button[type="submit"] {
+                border-radius: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Chat with Your PDFs</h1>
+
+    <div class="chat-container">
+        <form method="POST">
+            <input type="text" name="question" placeholder="Enter your question" value="{{ question or '' }}">
+            <button type="submit">Ask</button>
+        </form>
+
+        {% if answer %}
+            <h2>Answer:</h2>
+            <p>{{ answer }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
