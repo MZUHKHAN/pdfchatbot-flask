@@ -2,6 +2,57 @@
 <html>
 <head>
     <title>Chat with PDFs</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box; 
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+
+        p {
+            white-space: pre-wrap; 
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            input[type="text"] {
+                width: 90%; 
+            }
+
+            button[type="submit"] {
+                width: 90%; 
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>Chat with Your PDFs</h1>
