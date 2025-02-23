@@ -16,8 +16,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
 
 # ... (Existing functions: get_pdf_text, get_text_chunks, get_vector_store, get_conversational_chain) ...
 # Extracting all the text from the PDFs and storing it in text
