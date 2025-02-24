@@ -18,15 +18,14 @@
             padding: 20px;
             border-right: 1px solid #ddd;
             height: 100vh; 
-            display: flex; /* Enable flexbox for vertical centering */
-            flex-direction: column; /* Arrange items vertically */
-            align-items: center; /* Center items horizontally */
-            justify-content: center; /* Center items vertically */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
         }
 
         .sidebar h2 {
-            margin-top: 0;
-            margin-bottom: 20px; /* Add margin below the heading */
+            margin-top: 20px; /* Moved to the top */
+            margin-bottom: 20px; 
         }
 
         .main-content {
@@ -37,10 +36,13 @@
         /* Styles for buttons */
         input[type="file"] {
             padding: 12px; 
-            font-size: 16px; 
+            font-size: 14px; /* Reduced font size */
             margin-bottom: 15px; 
             width: calc(100% - 24px); 
             box-sizing: border-box; 
+            overflow: hidden; /* Hide overflowing text */
+            text-overflow: ellipsis; /* Add ellipsis for overflowing text */
+            white-space: nowrap; /* Prevent text from wrapping */
         }
 
         button[type="submit"] {
@@ -57,7 +59,7 @@
 </head>
 <body>
     <div class="sidebar">
-        <h2>Upload PDF</h2>
+        <h2>Upload PDF</h2> 
         {% if error %}
             <p class="error">{{ error }}</p>
         {% endif %}
