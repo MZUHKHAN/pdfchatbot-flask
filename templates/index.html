@@ -5,19 +5,19 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa; /* Light background color */
+            background-color: #f4f4f4;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding-top: 50px; /* Move content upwards */
+            padding-top: 50px;
         }
 
         h1 {
             color: #333;
-            margin-bottom: 20px; /* Reduced margin */
-            font-size: 2.5em; /* Smaller header size */
+            margin-bottom: 20px;
+            font-size: 2.5em;
         }
 
         form {
@@ -25,30 +25,33 @@
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            width: 80%; /* Adjust width as needed */
+            width: 80%;
             max-width: 600px;
         }
 
         input[type="file"] {
             margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
 
         button[type="submit"] {
-            background-color: #007bff; /* Primary blue color */
+            background-color: #007bff;
             color: #fff;
             border: none;
             padding: 12px 25px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* Smooth transition on hover */
+            transition: background-color 0.3s ease;
         }
 
         button[type="submit"]:hover {
-            background-color: #0056b3; /* Darker blue on hover */
+            background-color: #0056b3;
         }
 
         .error {
-            color: #dc3545; /* Red color for errors */
+            color: #dc3545;
             margin-top: 15px;
         }
 
@@ -56,25 +59,32 @@
         @media (max-width: 600px) {
             form {
                 padding: 20px;
-                width: 90%; /* Adjust width for mobile */
+                width: 90%;
             }
 
             input[type="file"],
             button[type="submit"] {
-                width: 90%;
+                width: 100%;
+                box-sizing: border-box; /* Ensure elements don't overflow */
             }
         }
     </style>
 </head>
 <body>
-    <h1>Upload PDF Files</h1>
-    {% if error %}
-        <p class="error">{{ error }}</p>
-    {% endif %}
+    <h1>PDF QA App</h1>
+
     <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="pdf_files" multiple>
-        <br>
-        <button type="submit">Submit & Process</button>
+        <input type="file" name="pdf_file" accept=".pdf">
+        <button type="submit">Upload and Analyze</button>
     </form>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if answer %}
+        <h2>Answer:</h2>
+        <p>{{ answer }}</p>
+    {% endif %}
 </body>
 </html>
