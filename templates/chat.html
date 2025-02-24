@@ -1,82 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Chat with PDFs</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa; /* Professional, light gray background */
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding-top: 50px; 
-        }
-
-        h1 {
-            color: #343a40; /* Dark gray for better contrast */
-            margin-bottom: 20px; 
-            font-size: 2.5em;
-        }
-
-        .chat-container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 80%;
-            max-width: 800px; /* Increased max-width */
-        }
-
-        input[type="text"] {
-            width: calc(100% - 120px); 
-            padding: 15px; /* Increased padding */
-            border: 1px solid #ced4da; /* Light gray border */
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-right: 10px;
-            font-size: 16px; /* Increased font size */
-        }
-
-        button[type="submit"] {
-            background-color: #007bff; /* Primary blue color */
-            color: #fff;
-            padding: 15px 25px; /* Increased padding */
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px; /* Increased font size */
-        }
-
-        button[type="submit"]:hover {
-            background-color: #0062cc; /* Darker blue on hover */
-        }
-
-        h2 {
-            color: #343a40; /* Dark gray for better contrast */
-            margin-top: 20px; 
-        }
-
-        p {
-            line-height: 1.6;
-            font-size: 16px; /* Increased font size */
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with PDF</title>
 </head>
 <body>
-    <h1>Chat with Your PDFs</h1>
+    <h1>Chat with PDF</h1>
 
-    <div class="chat-container">
-        <form method="POST">
-            <input type="text" name="question" placeholder="Enter your question" value="{{ question or '' }}">
-            <button type="submit">Ask</button>
-        </form>
-
-        {% if answer %}
-            <h2>Answer:</h2>
-            <p>{{ answer }}</p>
+    <div id="chat-container">
+        {% if question and answer %}
+            <p><strong>You:</strong> {{ question }}</p>
+            <p><strong>Bot:</strong> {{ answer }}</p>
         {% endif %}
     </div>
+
+    <form method="POST">
+        <label for="question">Your Question:</label>
+        <input type="text" name="question" id="question">
+        <button type="submit">Ask</button>
+    </form>
 </body>
 </html>
