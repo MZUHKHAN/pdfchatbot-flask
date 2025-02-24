@@ -29,8 +29,25 @@
             padding: 20px;
         }
 
-        /* Other styles remain the same */
-        /* ... (rest of your CSS) ... */
+        /* Styles for buttons */
+        input[type="file"] {
+            padding: 12px; /* Increased padding */
+            font-size: 16px; /* Increased font size */
+            margin-bottom: 15px; /* Added margin */
+            width: calc(100% - 24px); /* Adjust width for padding */
+            box-sizing: border-box; /* Include padding in width calculation */
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 20px; /* Increased padding */
+            font-size: 16px; /* Increased font size */
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 100%; /* Make button full width */
+        }
     </style>
 </head>
 <body>
@@ -41,7 +58,6 @@
         {% endif %}
         <form method="POST" enctype="multipart/form-data">
             <input type="file" name="pdf_files" id="pdf_files" multiple>
-            <br>
             <button type="submit">Upload and Chat</button>
         </form>
     </div>
