@@ -7,74 +7,48 @@
     <style>
         body {
             font-family: sans-serif;
-            background-color: #f4f4f4; 
-            color: #333; 
-            margin: 0; 
-            padding: 0; 
+            display: flex; 
         }
 
-        h1 {
-            text-align: center;
-            padding: 20px 0;
-            background-color: #007bff; 
-            color: #fff; 
-            margin: 0; 
-        }
-
-        form {
-            max-width: 600px;
-            margin: 20px auto;
+        /* Sidebar styles */
+        .sidebar {
+            width: 250px; 
+            background-color: #f4f4f4;
             padding: 20px;
-            background-color: #fff; 
-            border-radius: 5px; 
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid #ddd;
         }
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
+        .sidebar h2 {
+            margin-top: 0; 
         }
 
-        input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc; 
-            border-radius: 3px; 
+        /* Main content styles */
+        .main-content {
+            flex: 1;
+            padding: 20px;
         }
 
-        button[type="submit"] {
-            background-color: #007bff; 
-            color: #fff; 
-            padding: 10px 20px;
-            border: none;
-            border-radius: 3px; 
-            cursor: pointer;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #0056b3; 
-        }
-
-        p.error {
-            color: red;
-            margin-top: 10px;
-        }
+        /* Other styles remain the same */
+        /* ... (rest of your CSS) ... */
     </style>
 </head>
 <body>
-    <h1>PDF QA Chatbot</h1>
 
-    {% if error %}
-        <p class="error">{{ error }}</p>
-    {% endif %}
+    <div class="sidebar">
+        <h2>Upload PDF</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data">
+            <input type="file" name="pdf_files" id="pdf_files" multiple>
+            <br>
+            <button type="submit">Upload and Chat</button>
+        </form>
+    </div>
 
-    <form method="POST" enctype="multipart/form-data">
-        <label for="pdf_files">Upload PDF Files:</label>
-        <input type="file" name="pdf_files" id="pdf_files" multiple>
-        <br>
-        <button type="submit">Upload and Chat</button>
-    </form>
+    <div class="main-content">
+        <h1>PDF QA Chatbot</h1>
+        </div> 
+
 </body>
 </html>
