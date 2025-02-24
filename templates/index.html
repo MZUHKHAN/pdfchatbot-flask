@@ -7,22 +7,23 @@
     <style>
         body {
             font-family: sans-serif;
-            display: flex; 
+            display: flex;
+            margin: 0; /* Remove default body margins */
+            min-height: 100vh; /* Ensure body takes full viewport height */
         }
 
-        /* Sidebar styles */
         .sidebar {
-            width: 250px; 
+            width: 250px;
             background-color: #f4f4f4;
             padding: 20px;
             border-right: 1px solid #ddd;
+            height: 100vh; /* Make sidebar full viewport height */ 
         }
 
         .sidebar h2 {
-            margin-top: 0; 
+            margin-top: 0;
         }
 
-        /* Main content styles */
         .main-content {
             flex: 1;
             padding: 20px;
@@ -33,7 +34,6 @@
     </style>
 </head>
 <body>
-
     <div class="sidebar">
         <h2>Upload PDF</h2>
         {% if error %}
@@ -48,7 +48,6 @@
 
     <div class="main-content">
         <h1>PDF QA Chatbot</h1>
-        </div> 
-
+    </div> 
 </body>
 </html>
